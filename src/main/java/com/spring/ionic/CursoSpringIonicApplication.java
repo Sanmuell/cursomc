@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.spring.ionic.domain.Categoria;
 import com.spring.ionic.domain.Cidade;
+import com.spring.ionic.domain.Cliente;
+import com.spring.ionic.domain.Endereco;
 import com.spring.ionic.domain.Estado;
 import com.spring.ionic.domain.Produto;
+import com.spring.ionic.domain.enums.TipoCliente;
 import com.spring.ionic.repository.CategoriaRepository;
 import com.spring.ionic.repository.CidadeRepository;
+import com.spring.ionic.repository.ClienteRepository;
+import com.spring.ionic.repository.EnderecoRepository;
 import com.spring.ionic.repository.EstadoRepository;
 import com.spring.ionic.repository.ProdutoRepository;
 
@@ -30,6 +35,12 @@ public class CursoSpringIonicApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringIonicApplication.class, args);
@@ -68,6 +79,17 @@ public class CursoSpringIonicApplication implements CommandLineRunner {
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria.silva@gmail.com", "123234235", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("234234234", "32423423"));
+		
+		Endereco e1 = new Endereco(null, "Rua FLores", "300", "Apto 303", "Jardim", "729999", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 180", "Centro", "345345", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 
 }
