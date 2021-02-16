@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.ionic.domain.Categoria;
-import com.spring.ionic.service.CategoriaService;
+import com.spring.ionic.domain.Produto;
+import com.spring.ionic.service.ProdutoService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
-@RequestMapping(value = "/categorias")
-public class CategoriaResource {
+@RequestMapping(value = "/produtos")
+public class ProdutoResource {
 
 	@Autowired
-	private CategoriaService categoriaService;
+	private ProdutoService produtoService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Categoria> buscar(@PathVariable Long id) throws ObjectNotFoundException {
-		Categoria categoria = categoriaService.buscar(id);
-		return ResponseEntity.ok().body(categoria);
+	public ResponseEntity<Produto> buscar(@PathVariable Long id) throws ObjectNotFoundException {
+		Produto produto = produtoService.buscar(id);
+		return ResponseEntity.ok().body(produto);
 	}
 }
