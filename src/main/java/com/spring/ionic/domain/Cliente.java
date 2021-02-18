@@ -12,9 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spring.ionic.domain.enums.TipoCliente;
 
 @Entity
@@ -31,6 +31,7 @@ public class Cliente implements Serializable {
 	// será armazenado um numero inteiro, mas irá expor um dado do tipo TIPOCLIENTE
 	private Integer tipo;
 	
+	@JsonManagedReference // Cliente pode serializar os Endereço
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
