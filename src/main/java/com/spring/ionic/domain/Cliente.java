@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spring.ionic.domain.enums.TipoCliente;
 
@@ -30,6 +31,10 @@ public class Cliente implements Serializable {
 	
 	// será armazenado um numero inteiro, mas irá expor um dado do tipo TIPOCLIENTE
 	private Integer tipo;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="cliente")
+	private List<Pedido> pedidos  = new ArrayList<>(); 
 	
 	@JsonManagedReference // Cliente pode serializar os Endereço
 	@OneToMany(mappedBy = "cliente")
@@ -134,6 +139,14 @@ public class Cliente implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 	
 	
